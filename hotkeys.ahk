@@ -7,7 +7,8 @@ Win + Numpad2 = LSFG 2x
 Win + Numpad3 = New Notepad++
 Win + Numpad4 = lfcd terminal
 Ctrl + Win + Numpad4 = lfcd admin terminal
-Ctrl + Win + Down = minimize
+Ctrl + Win + Down Arrow = minimize
+Ctrl + Win + Up Arrow = maximize the last minimized window
 */
 
 #Requires AutoHotkey v2.0
@@ -18,20 +19,20 @@ ActivateWindowUntilActive(windowTitle)
     Loop
     {
         WinActivate(windowTitle)
-        Sleep(100)  ; Wait a bit before checking
+        Sleep(100)  ; Wait before checking
         if WinActive(windowTitle)
             break
     }
 }
 
 ; wait for the window to load
-WindowLoaded(windowTitle)
+WinLoaded(windowTitle)
 {
     Loop
     {
         if WinExist(windowTitle)
             break
-        Sleep(100)  ; Wait a bit before checking
+        Sleep(100)  ; Wait before checking
     }
 }
 
@@ -51,15 +52,16 @@ WinKeyPressed()
 ; Open ChatGPT window
 #Numpad1::
 {
-    if WinExist("ahk_class CropAndLock.ReparentCropAndLockWindow")
+    ; if WinExist("ahk_class CropAndLock.ReparentCropAndLockWindow")
+    if WinExist("ChatGPT — Mozilla Firefox") ; window already exists, activate it
     {
-        ActivateWindowUntilActive("ahk_class CropAndLock.ReparentCropAndLockWindow") ; make sure window is active
-        Send("^#t") ; Ctrl + Win + T to toggle Always On Top
+        ActivateWindowUntilActive("ChatGPT — Mozilla Firefox")
+        ; Send("^#t") ; Ctrl + Win + T to toggle Always On Top
     }
-    else
+    else ; window doesn't exist, need to open
     {
         Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://chatgpt.com/"') ; open chatgpt
-        WindowLoaded("ChatGPT — Mozilla Firefox") ; wait for window to load
+        WinLoaded("ChatGPT — Mozilla Firefox") ; wait for window to load
         WinRestore("ChatGPT — Mozilla Firefox")
 
         ; move to main screen to avoid resize issues
@@ -72,7 +74,7 @@ WinKeyPressed()
         WinMove(1811, 221, 757, 1167, "ChatGPT — Mozilla Firefox") ; move and resize the window
         Send("^#t") ; Ctrl + Win + T to toggle Always On Top
 
-        ; TODO: Crop and Lock the window
+        ; TODO: Crop and Lock the window to make it look cleaner
     }
 }
 
@@ -84,15 +86,15 @@ WinKeyPressed()
 ; Open and Activate Notepad++
 #Numpad3::
 {
-    if WinExist("ahk_class ")
+    if WinExist("ahk_class Notepad++") ; window already exists, activate it and open new file
     {
         ActivateWindowUntilActive("ahk_class Notepad++") ; make sure window is active
         Send("^n") ; Ctrl + N open a new file
     }
-    else
+    else ; window doesn't exist, need to open
     {
         Run('"C:\Program Files\Notepad++\notepad++.exe"') ; open notepad++
-        WindowLoaded("ahk_class Notepad++") ; wait for window to load
+        WinLoaded("ahk_class Notepad++") ; wait for window to load
         WinMaximize()
         Send("^n") ; Ctrl + N open a new file
     }
@@ -104,7 +106,7 @@ WinKeyPressed()
 {
     Run('"C:\Users\Cameron\AppData\Local\Microsoft\WindowsApps\wt.exe"') ; open terminal
     Sleep(300)  ; Wait a bit before checking
-    WindowLoaded("ahk_exe WindowsTerminal.exe") ; wait for window to load
+    WinLoaded("ahk_exe WindowsTerminal.exe") ; wait for window to load
     WinMaximize()
     WinKeyPressed() ; make sure windows key isn't pressed so computer doesn't lock
     Send("lfcd{Enter}") ; enter lfcd command
@@ -116,7 +118,7 @@ WinKeyPressed()
 {
     Run('"C:\Users\Cameron\AppData\Local\Microsoft\WindowsApps\wt.exe"') ; open terminal
     Sleep(300)  ; Wait a bit before checking
-    WindowLoaded("ahk_exe WindowsTerminal.exe") ; wait for window to load
+    WinLoaded("ahk_exe WindowsTerminal.exe") ; wait for window to load
     WinMaximize()
     WinKeyPressed() ; make sure windows key isn't pressed so computer doesn't lock
     Send("sudo lfcd{Enter}") ; enter lfcd command
@@ -136,10 +138,10 @@ WinKeyPressed()
     ; Retrieve a list of all windows
     winList := WinGetList()
 
-    Loop winList.Length
+    Loop winList.Length ; check all windows in order
     {
         win := winList[A_Index]
-        if WinGetMinMax(win) = -1
+        if WinGetMinMax(win) = -1 ; if window is minimized
         {
             WinRestore(win)
             WinActivate(win)
