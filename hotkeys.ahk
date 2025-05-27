@@ -14,10 +14,8 @@ Ctrl + Win + Up Arrow = maximize the last minimized window
 #Requires AutoHotkey v2.0
 
 ; try activating the window until it is active
-ActivateWindowUntilActive(windowTitle)
-{
-    Loop
-    {
+ActivateWindowUntilActive(windowTitle) {
+    loop {
         WinActivate(windowTitle)
         Sleep(100)  ; Wait before checking
         if WinActive(windowTitle)
@@ -26,10 +24,8 @@ ActivateWindowUntilActive(windowTitle)
 }
 
 ; wait for the window to load
-WinLoaded(windowTitle)
-{
-    Loop
-    {
+WinLoaded(windowTitle) {
+    loop {
         if WinExist(windowTitle)
             break
         Sleep(100)  ; Wait before checking
@@ -37,8 +33,7 @@ WinLoaded(windowTitle)
 }
 
 ; wait until windows key isn't pressed
-WinKeyPressed()
-{
+WinKeyPressed() {
     ; Check if either LWin or RWin is pressed
     if (GetKeyState("LWin", "P") || GetKeyState("RWin", "P")) {
         ; Wait until both LWin and RWin are released
@@ -138,7 +133,7 @@ WinKeyPressed()
     ; Retrieve a list of all windows
     winList := WinGetList()
 
-    Loop winList.Length ; check all windows in order
+    loop winList.Length ; check all windows in order
     {
         win := winList[A_Index]
         if WinGetMinMax(win) = -1 ; if window is minimized
