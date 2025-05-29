@@ -123,7 +123,25 @@ WinKeyPressed() {
 ; minimize the active window
 #^Down::
 {
-    WinMinimize("A")
+    hWnd := WinExist("A")
+    class := WinGetClass("ahk_id " hWnd)
+
+    ; don't minimize desktop or task bar
+    if (class = "Progman" || class = "WorkerW" || class = "" || class = "Shell_TrayWnd" || class = "Shell_SecondaryTrayWnd")
+        return
+
+    ; minimize current window
+    WinMinimize("ahk_id " hWnd)
+
+    ; attempt natural focus shift
+    Sleep(100)
+
+    ; if same window still active, force focus to next window
+    if (WinActive("ahk_id " hWnd))
+    {
+        ; switch to next window by Alt+Esc
+        Send("{Alt down}{Esc}{Alt up}")
+    }
 }
 
 ; Win + Ctrl + Up Arrow
@@ -135,8 +153,8 @@ WinKeyPressed() {
 
     loop winList.Length ; check all windows in order
     {
-        win := winList[A_Index]
-        if WinGetMinMax(win) = -1 ; if window is minimized
+        win := winList[winList.Length - A_Index + 1]
+        if WinGetMinMax(win) = -1 ; if window is minimized, reactivate
         {
             WinRestore(win)
             WinActivate(win)
