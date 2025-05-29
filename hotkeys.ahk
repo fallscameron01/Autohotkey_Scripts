@@ -17,7 +17,7 @@ Ctrl + Win + Up Arrow = maximize the last minimized window
 ActivateWindowUntilActive(windowTitle) {
     loop {
         WinActivate(windowTitle)
-        Sleep(100)  ; Wait before checking
+        Sleep(100)  ; wait before checking
         if WinActive(windowTitle)
             break
     }
@@ -28,16 +28,14 @@ WinLoaded(windowTitle) {
     loop {
         if WinExist(windowTitle)
             break
-        Sleep(100)  ; Wait before checking
+        Sleep(100)  ; wait before checking
     }
 }
 
 ; wait until windows key isn't pressed
 WinKeyPressed() {
-    ; Check if either LWin or RWin is pressed
-    if (GetKeyState("LWin", "P") || GetKeyState("RWin", "P")) {
-        ; Wait until both LWin and RWin are released
-        while (GetKeyState("LWin", "P") || GetKeyState("RWin", "P")) {
+    if (GetKeyState("LWin", "P") || GetKeyState("RWin", "P")) { ; check if a win key is pressed
+        while (GetKeyState("LWin", "P") || GetKeyState("RWin", "P")) { ; wait until both LWin and RWin are released
             Sleep(100)
         }
     }
@@ -100,7 +98,7 @@ WinKeyPressed() {
 #Numpad4::
 {
     Run('"C:\Users\Cameron\AppData\Local\Microsoft\WindowsApps\wt.exe"') ; open terminal
-    Sleep(300)  ; Wait a bit before checking
+    Sleep(300)  ; wait before checking
     WinLoaded("ahk_exe WindowsTerminal.exe") ; wait for window to load
     WinMaximize()
     WinKeyPressed() ; make sure windows key isn't pressed so computer doesn't lock
@@ -112,7 +110,7 @@ WinKeyPressed() {
 #^Numpad4::
 {
     Run('"C:\Users\Cameron\AppData\Local\Microsoft\WindowsApps\wt.exe"') ; open terminal
-    Sleep(300)  ; Wait a bit before checking
+    Sleep(300)  ; wait before checking
     WinLoaded("ahk_exe WindowsTerminal.exe") ; wait for window to load
     WinMaximize()
     WinKeyPressed() ; make sure windows key isn't pressed so computer doesn't lock
@@ -127,7 +125,8 @@ WinKeyPressed() {
     class := WinGetClass("ahk_id " hWnd)
 
     ; don't minimize desktop or task bar
-    if (class = "Progman" || class = "WorkerW" || class = "" || class = "Shell_TrayWnd" || class = "Shell_SecondaryTrayWnd")
+    if (class = "Progman" || class = "WorkerW" || class = "" || class = "Shell_TrayWnd" || class =
+        "Shell_SecondaryTrayWnd")
         return
 
     ; minimize current window
@@ -137,8 +136,7 @@ WinKeyPressed() {
     Sleep(100)
 
     ; if same window still active, force focus to next window
-    if (WinActive("ahk_id " hWnd))
-    {
+    if (WinActive("ahk_id " hWnd)) {
         ; switch to next window by Alt+Esc
         Send("{Alt down}{Esc}{Alt up}")
     }
@@ -148,7 +146,7 @@ WinKeyPressed() {
 ; maximize the last minimized window
 #^Up::
 {
-    ; Retrieve a list of all windows
+    ; retrieve list of all windows
     winList := WinGetList()
 
     loop winList.Length ; check all windows in order
