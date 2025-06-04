@@ -93,9 +93,9 @@ WinKeyPressed() {
     WinMove(-2400, 239, 1200, 1290, "ahk_exe LosslessScaling.exe") ; position on left half of 2nd screen
     Send("{Tab}{Tab}{Down}") ; navigate to 2x profile
     Send("{Alt down}{Esc}{Alt up}") ; switch back to previous window
-    
+
     Sleep(300)
-    
+
     Send("^!s") ; activate LS
 }
 
@@ -121,9 +121,9 @@ WinKeyPressed() {
     WinMove(-2400, 239, 1200, 1290, "ahk_exe LosslessScaling.exe")  ; position on left half of 2nd screen
     Send("{Tab}{Tab}{Down}{Down}") ; navigate to adaptive 165 hz profile
     Send("{Alt down}{Esc}{Alt up}") ; switch back to previous window
-    
+
     Sleep(300)
-    
+
     Send("^!s") ; activate LS
 }
 
@@ -187,7 +187,7 @@ WinKeyPressed() {
     WinMaximize()
 
     Sleep(500)
-    
+
     Send("^!d") ; open today's journal entry
 }
 
