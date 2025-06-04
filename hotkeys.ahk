@@ -73,7 +73,59 @@ WinKeyPressed() {
 
 ; Win + Numpad2
 ; Open and Activate LSFG 2x
-; TODO: open LS > Press Tab twice, Press Down Arrow once > minimize or put window somewhere > switch back to original tab and press shortcut
+#Numpad2::
+{
+    ; TODO: If already active, deactivate
+
+    Run('"C:\Program Files (x86)\Steam\steamapps\common\Lossless Scaling\LosslessScaling.exe"') ; open LS
+    WinLoaded("ahk_exe LosslessScaling.exe") ; wait for window to load
+    WinRestore("ahk_exe LosslessScaling.exe")
+
+    ; move to secondary screen to avoid resize issues
+    x := 0
+    WinGetPos(&x)
+    if (x >= 0) {
+        WinMove(-1500, 500, 700, 700, "ahk_exe LosslessScaling.exe")
+    }
+
+    WinKeyPressed()
+
+    WinMove(-2400, 239, 1200, 1290, "ahk_exe LosslessScaling.exe") ; position on left half of 2nd screen
+    Send("{Tab}{Tab}{Down}") ; navigate to 2x profile
+    Send("{Alt down}{Esc}{Alt up}") ; switch back to previous window
+    
+    Sleep(300)
+    
+    Send("^!s") ; activate LS
+}
+
+; Win + Ctrl + Numpad2
+; Open and Activate LSFG Adaptive 165 Hz
+#^Numpad2::
+{
+    ; TODO: If already active, deactivate
+
+    Run('"C:\Program Files (x86)\Steam\steamapps\common\Lossless Scaling\LosslessScaling.exe"') ; open LS
+    WinLoaded("ahk_exe LosslessScaling.exe") ; wait for window to load
+    WinRestore("ahk_exe LosslessScaling.exe")
+
+    ; move to secondary screen to avoid resize issues
+    x := 0
+    WinGetPos(&x)
+    if (x >= 0) {
+        WinMove(-1500, 500, 700, 700, "ahk_exe LosslessScaling.exe")
+    }
+
+    WinKeyPressed()
+
+    WinMove(-2400, 239, 1200, 1290, "ahk_exe LosslessScaling.exe")  ; position on left half of 2nd screen
+    Send("{Tab}{Tab}{Down}{Down}") ; navigate to adaptive 165 hz profile
+    Send("{Alt down}{Esc}{Alt up}") ; switch back to previous window
+    
+    Sleep(300)
+    
+    Send("^!s") ; activate LS
+}
 
 ; Win + Numpad3
 ; Open and Activate Notepad++
@@ -105,7 +157,7 @@ WinKeyPressed() {
     Send("lfcd{Enter}") ; enter lfcd command
 }
 
-; Win + CTRL + Numpad4
+; Win + Ctrl + Numpad4
 ; Open terminal with lf as administrator
 #^Numpad4::
 {
@@ -115,6 +167,28 @@ WinKeyPressed() {
     WinMaximize()
     WinKeyPressed() ; make sure windows key isn't pressed so computer doesn't lock
     Send("sudo lfcd{Enter}") ; enter lfcd command
+}
+
+; Win + Numpad5
+; Open today's Joplin journal entry
+#Numpad5::
+{
+    Run('"C:\Users\Cameron\scoop\apps\joplin\current\Joplin.exe"') ; open Joplin
+    WinLoaded("ahk_exe Joplin.exe") ; wait for window to load
+    Sleep(1000)
+    WinLoaded("ahk_exe Joplin.exe") ; wait for window to load
+
+    ; move to main screen
+    x := 0
+    WinGetPos(&x)
+    if (x <= 0) {
+        WinMove(500, 500, 700, 700, "ahk_exe Joplin.exe")
+    }
+    WinMaximize()
+
+    Sleep(500)
+    
+    Send("^!d") ; open today's journal entry
 }
 
 ; Win + Ctrl + Down Arrow
