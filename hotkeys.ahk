@@ -71,6 +71,32 @@ WinKeyPressed() {
     }
 }
 
+; Win + Ctrl + Numpad1
+; Open Lumo window
+#^Numpad1::
+{
+    if WinExist("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox") ; window already exists, activate it
+    {
+        ActivateWindowUntilActive("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox")
+    }
+    else ; window doesn't exist, need to open
+    {
+        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://lumo.proton.me/"') ; open Lumo
+        WinLoaded("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox") ; wait for window to load
+        WinRestore("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox")
+
+        ; move to main screen to avoid resize issues
+        x := 0
+        WinGetPos(&x)
+        if (x <= 0) {
+            WinMove(500, 500, 700, 700, "Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox")
+        }
+
+        WinMove(1811, 221, 757, 1167, "Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox") ; move and resize the window
+        Send("^#t") ; Ctrl + Win + T to toggle Always On Top
+    }
+}
+
 ; Win + Numpad2
 ; Open and Activate LSFG 2x
 #Numpad2::

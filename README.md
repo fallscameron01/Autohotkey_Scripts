@@ -5,6 +5,7 @@ Various macros and hotkeys I use on my personal machine.
 | Hotkey | Function | Note |
 |--------|----------|------|
 | Win + Numpad1 | ChatGPT | |
+| Ctrl + Win + Numpad1 | Lumo | |
 | Win + Numpad2 | LSFG 2x | |
 | Ctrl + Win + Numpad2 | LSFG 165 Hz | |
 | Win + Numpad3 | New Notepad++ | |
