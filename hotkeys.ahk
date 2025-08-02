@@ -97,6 +97,84 @@ WinKeyPressed() {
     }
 }
 
+; Win + Alt + Numpad1
+; Open Claude window
+#!Numpad1::
+{
+    if WinExist("Claude — Mozilla Firefox") ; window already exists, activate it
+    {
+        ActivateWindowUntilActive("Claude — Mozilla Firefox")
+    }
+    else ; window doesn't exist, need to open
+    {
+        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://claude.ai/"') ; open Claude
+        WinLoaded("Claude — Mozilla Firefox") ; wait for window to load
+        WinRestore("Claude — Mozilla Firefox")
+
+        ; move to main screen to avoid resize issues
+        x := 0
+        WinGetPos(&x)
+        if (x <= 0) {
+            WinMove(500, 500, 700, 700, "Claude — Mozilla Firefox")
+        }
+
+        WinMove(1811, 221, 757, 1167, "Claude — Mozilla Firefox") ; move and resize the window
+        Send("^#t") ; Ctrl + Win + T to toggle Always On Top
+    }
+}
+
+; Win + Numpad0
+; Open WebUI window
+#Numpad0::
+{
+    if WinExist("Open WebUI — Mozilla Firefox") ; window already exists, activate it
+    {
+        ActivateWindowUntilActive("Open WebUI — Mozilla Firefox")
+    }
+    else ; window doesn't exist, need to open
+    {
+        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "http://localhost:3000/"') ; open Open WebUI
+        WinLoaded("Open WebUI — Mozilla Firefox") ; wait for window to load
+        WinRestore("Open WebUI — Mozilla Firefox")
+
+        ; move to main screen to avoid resize issues
+        x := 0
+        WinGetPos(&x)
+        if (x <= 0) {
+            WinMove(500, 500, 700, 700, "Open WebUI — Mozilla Firefox")
+        }
+
+        WinMove(1811, 221, 757, 1167, "Open WebUI — Mozilla Firefox") ; move and resize the window
+        Send("^#t") ; Ctrl + Win + T to toggle Always On Top
+    }
+}
+
+; Win + Ctrl + Numpad0
+; Open GitHub Copilot window
+#^Numpad0::
+{
+    if WinExist("New conversation · GitHub Copilot — Mozilla Firefox") ; window already exists, activate it
+    {
+        ActivateWindowUntilActive("New conversation · GitHub Copilot — Mozilla Firefox")
+    }
+    else ; window doesn't exist, need to open
+    {
+        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://github.com/copilot"') ; open GitHub Copilot
+        WinLoaded("New conversation · GitHub Copilot — Mozilla Firefox") ; wait for window to load
+        WinRestore("New conversation · GitHub Copilot — Mozilla Firefox")
+
+        ; move to main screen to avoid resize issues
+        x := 0
+        WinGetPos(&x)
+        if (x <= 0) {
+            WinMove(500, 500, 700, 700, "New conversation · GitHub Copilot — Mozilla Firefox")
+        }
+
+        WinMove(1811, 221, 757, 1167, "New conversation · GitHub Copilot — Mozilla Firefox") ; move and resize the window
+        Send("^#t") ; Ctrl + Win + T to toggle Always On Top
+    }
+}
+
 ; Win + Numpad2
 ; Open and Activate LSFG 2x
 #Numpad2::
