@@ -6,19 +6,17 @@ Various macros and hotkeys I use on my personal machine.
 
 | Hotkey | Function | Note |
 |--------|----------|------|
-| Win + Numpad0 | Open WebUI | |
-| Win + Numpad1 | ChatGPT | |
-| Ctrl + Win + Numpad1 | Lumo | |
-| Alt + Win + Numpad1 | Claude | |
-| Ctrl + Win + Numpad0 | GitHub Copilot | |
-| Win + Numpad2 | LSFG 2x | |
-| Ctrl + Win + Numpad2 | LSFG 165 Hz | |
-| Win + Numpad3 | New Notepad++ | |
-| Win + Numpad4 | lfcd terminal | |
-| Ctrl + Win + Numpad4 | lfcd admin terminal | |
-| Win + Numpad5 | Joplin daily journal | |
-| Ctrl + Win + Down Arrow | minimize | |
-| Ctrl + Win + Up Arrow | maximize the last minimized window | |
+| F15 | ChatGPT (Firefox) | Opens/activates ChatGPT browser window |
+| F16 | Claude (Firefox) | Opens/activates Claude browser window |
+| F17 | Open WebUI (Firefox) | Opens/activates local WebUI window |
+| F18 | LSFG 2x | Opens Lossless Scaling and selects 2x profile |
+| F19 | LSFG Adaptive 165 Hz | Opens Lossless Scaling and selects adaptive 165Hz profile |
+| F21 | Notepad++ | Opens/activates Notepad++ and new file |
+| F22 | Terminal + lfcd | Opens Windows Terminal and runs lfcd |
+| F23 | Terminal + sudo lfcd | Opens Windows Terminal and runs sudo lfcd |
+| Win + Numpad5 | Joplin daily journal | Opens Joplin and activates today\'s journal entry |
+| Ctrl + Win + Down Arrow | minimize active window | |
+| Ctrl + Win + Up Arrow | restore last minimized window | |
 
 ## Usage
 

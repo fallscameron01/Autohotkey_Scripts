@@ -2,13 +2,17 @@
 Various macros I use on my personal machine.
 
 List of Hotkeys:
-Win + Numpad1 = ChatGPT
-Win + Numpad2 = LSFG 2x
-Win + Numpad3 = New Notepad++
-Win + Numpad4 = lfcd terminal
-Ctrl + Win + Numpad4 = lfcd admin terminal
-Ctrl + Win + Down Arrow = minimize
-Ctrl + Win + Up Arrow = maximize the last minimized window
+F15 = ChatGPT
+F16 = Claude
+F17 = Open WebUI
+F18 = LSFG 2x
+F19 = LSFG Adaptive 165 Hz
+F21 = Notepad++
+F22 = Open terminal and run lfcd
+F23 = Open terminal and run sudo lfcd
+Win + Numpad5 = Open today\'s Joplin journal entry
+Ctrl + Win + Down Arrow = minimize active window
+Ctrl + Win + Up Arrow = maximize/restore last minimized window
 */
 
 #Requires AutoHotkey v2.0
@@ -71,33 +75,7 @@ F15::
     }
 }
 
-; Win + Ctrl + Numpad1
-; Open Lumo window
-#^Numpad1::
-{
-    if WinExist("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox") ; window already exists, activate it
-    {
-        ActivateWindowUntilActive("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox")
-    }
-    else ; window doesn't exist, need to open
-    {
-        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://lumo.proton.me/"') ; open Lumo
-        WinLoaded("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox") ; wait for window to load
-        WinRestore("Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox")
-
-        ; move to main screen to avoid resize issues
-        x := 0
-        WinGetPos(&x)
-        if (x <= 0) {
-            WinMove(500, 500, 700, 700, "Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox")
-        }
-
-        WinMove(1811, 221, 757, 1167, "Lumo: Privacy-first AI assistant where chats stay confidential — Mozilla Firefox") ; move and resize the window
-        Send("^#t") ; Ctrl + Win + T to toggle Always On Top
-    }
-}
-
-; Win + Alt + Numpad1
+; F16 (Macro Layer 3 Numpad 2)
 ; Open Claude window
 F16::
 {
@@ -123,7 +101,7 @@ F16::
     }
 }
 
-; Win + Numpad0
+; F17 (Macro Layer 3 Numpad 3)
 ; Open WebUI window
 F17::
 {
@@ -149,35 +127,9 @@ F17::
     }
 }
 
-; Win + Ctrl + Numpad0
-; Open GitHub Copilot window
-#^Numpad0::
-{
-    if WinExist("New conversation · GitHub Copilot — Mozilla Firefox") ; window already exists, activate it
-    {
-        ActivateWindowUntilActive("New conversation · GitHub Copilot — Mozilla Firefox")
-    }
-    else ; window doesn't exist, need to open
-    {
-        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://github.com/copilot"') ; open GitHub Copilot
-        WinLoaded("New conversation · GitHub Copilot — Mozilla Firefox") ; wait for window to load
-        WinRestore("New conversation · GitHub Copilot — Mozilla Firefox")
-
-        ; move to main screen to avoid resize issues
-        x := 0
-        WinGetPos(&x)
-        if (x <= 0) {
-            WinMove(500, 500, 700, 700, "New conversation · GitHub Copilot — Mozilla Firefox")
-        }
-
-        WinMove(1811, 221, 757, 1167, "New conversation · GitHub Copilot — Mozilla Firefox") ; move and resize the window
-        Send("^#t") ; Ctrl + Win + T to toggle Always On Top
-    }
-}
-
-; Win + Numpad2
+; F18 (Macro Layer 3 Numpad 4)
 ; Open and Activate LSFG 2x
-#Numpad2::
+F18::
 {
     ; TODO: If already active, deactivate
 
@@ -203,9 +155,9 @@ F17::
     Send("^!s") ; activate LS
 }
 
-; Win + Ctrl + Numpad2
+; F19 (Macro Layer 3 Numpad 5)
 ; Open and Activate LSFG Adaptive 165 Hz
-#^Numpad2::
+F19::
 {
     ; TODO: If already active, deactivate
 
@@ -231,9 +183,9 @@ F17::
     Send("^!s") ; activate LS
 }
 
-; Win + Numpad3
+; F21 (Macro Layer 3 Numpad 7)
 ; Open and Activate Notepad++
-#Numpad3::
+F21::
 {
     if WinExist("ahk_class Notepad++") ; window already exists, activate it and open new file
     {
@@ -249,9 +201,9 @@ F17::
     }
 }
 
-; Win + Numpad4
+; F22 (Macro Layer 3 Numpad 8)
 ; Open terminal with lf
-#Numpad4::
+F22::
 {
     Run('"C:\Users\Cameron\AppData\Local\Microsoft\WindowsApps\wt.exe"') ; open terminal
     Sleep(300)  ; wait before checking
@@ -261,9 +213,9 @@ F17::
     Send("lfcd{Enter}") ; enter lfcd command
 }
 
-; Win + Ctrl + Numpad4
+; F23 (Macro Layer 3 Numpad 9)
 ; Open terminal with lf as administrator
-#^Numpad4::
+F23::
 {
     Run('"C:\Users\Cameron\AppData\Local\Microsoft\WindowsApps\wt.exe"') ; open terminal
     Sleep(300)  ; wait before checking
@@ -274,7 +226,7 @@ F17::
 }
 
 ; Win + Numpad5
-; Open today's Joplin journal entry
+; Open today's Joplin journal entry TODO switch to obsidian
 #Numpad5::
 {
     Run('"C:\Users\Cameron\scoop\apps\joplin\current\Joplin.exe"') ; open Joplin
