@@ -41,9 +41,9 @@ WinKeyPressed() {
     }
 }
 
-; Win + Numpad1
+; F15 (Macro Layer 3 Numpad 1)
 ; Open ChatGPT window
-#Numpad1::
+F15::
 {
     ; if WinExist("ahk_class CropAndLock.ReparentCropAndLockWindow")
     if WinExist("ChatGPT — Mozilla Firefox") ; window already exists, activate it
@@ -53,18 +53,18 @@ WinKeyPressed() {
     }
     else ; window doesn't exist, need to open
     {
-        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://chatgpt.com/"') ; open chatgpt
-        WinLoaded("ChatGPT — Mozilla Firefox") ; wait for window to load
-        WinRestore("ChatGPT — Mozilla Firefox")
+        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" "-taskbar-tab" "f537cc3f-78c8-4f65-8179-eff1a0f13449" "-new-window" "https://chatgpt.com" "-container" "0"') ; open chatgpt
+        WinLoaded("ChatGPT — Chatgpt in Mozilla Firefox") ; wait for window to load
+        WinRestore("ChatGPT — Chatgpt in Mozilla Firefox")
 
         ; move to main screen to avoid resize issues
         x := 0
         WinGetPos(&x)
         if (x <= 0) {
-            WinMove(500, 500, 700, 700, "ChatGPT — Mozilla Firefox")
+            WinMove(500, 500, 700, 700, "ChatGPT — Chatgpt in Mozilla Firefox")
         }
 
-        WinMove(1811, 221, 757, 1167, "ChatGPT — Mozilla Firefox") ; move and resize the window
+        WinMove(1547, 230, 1005, 1158, "ChatGPT — Chatgpt in Mozilla Firefox") ; move and resize the window
         Send("^#t") ; Ctrl + Win + T to toggle Always On Top
 
         ; TODO: Crop and Lock the window to make it look cleaner
@@ -99,7 +99,7 @@ WinKeyPressed() {
 
 ; Win + Alt + Numpad1
 ; Open Claude window
-#!Numpad1::
+F16::
 {
     if WinExist("Claude — Mozilla Firefox") ; window already exists, activate it
     {
@@ -125,7 +125,7 @@ WinKeyPressed() {
 
 ; Win + Numpad0
 ; Open WebUI window
-#Numpad0::
+F17::
 {
     if WinExist("Open WebUI — Mozilla Firefox") ; window already exists, activate it
     {
