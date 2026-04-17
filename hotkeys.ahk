@@ -45,6 +45,22 @@ WinKeyPressed() {
     }
 }
 
+; move a window to the right half of the secondary monitor, resizing it to fit
+MoveActiveWindowRightHalfSecondary(windowTitle) {
+    ; move to secondary screen to avoid resize issues
+    WinMove(-1500, 500, 500, 500, windowTitle)
+
+    ; Your secondary display is monitor 1
+    MonitorGetWorkArea(1, &L, &T, &R, &B)
+
+    W := R - L
+    H := B - T
+    HalfW := W // 2
+
+    ; Right half of monitor 1
+    WinMove(L + HalfW, T, HalfW, H, windowTitle)
+}
+
 ; F15 (Macro Layer 3 Numpad 1)
 ; Open ChatGPT window
 F15::
@@ -53,7 +69,6 @@ F15::
     if WinExist("ChatGPT — Mozilla Firefox") ; window already exists, activate it
     {
         ActivateWindowUntilActive("ChatGPT — Mozilla Firefox")
-        ; Send("^#t") ; Ctrl + Win + T to toggle Always On Top
     }
     else ; window doesn't exist, need to open
     {
@@ -61,17 +76,8 @@ F15::
         WinLoaded("ChatGPT — Chatgpt in Mozilla Firefox") ; wait for window to load
         WinRestore("ChatGPT — Chatgpt in Mozilla Firefox")
 
-        ; move to main screen to avoid resize issues
-        x := 0
-        WinGetPos(&x)
-        if (x <= 0) {
-            WinMove(500, 500, 700, 700, "ChatGPT — Chatgpt in Mozilla Firefox")
-        }
-
-        WinMove(1547, 230, 1005, 1158, "ChatGPT — Chatgpt in Mozilla Firefox") ; move and resize the window
+        MoveActiveWindowRightHalfSecondary("ChatGPT — Chatgpt in Mozilla Firefox")
         Send("^#t") ; Ctrl + Win + T to toggle Always On Top
-
-        ; TODO: Crop and Lock the window to make it look cleaner
     }
 }
 
@@ -89,14 +95,7 @@ F16::
         WinLoaded("Claude — Mozilla Firefox") ; wait for window to load
         WinRestore("Claude — Mozilla Firefox")
 
-        ; move to main screen to avoid resize issues
-        x := 0
-        WinGetPos(&x)
-        if (x <= 0) {
-            WinMove(500, 500, 700, 700, "Claude — Mozilla Firefox")
-        }
-
-        WinMove(1811, 221, 757, 1167, "Claude — Mozilla Firefox") ; move and resize the window
+        MoveActiveWindowRightHalfSecondary("Claude — Mozilla Firefox")
         Send("^#t") ; Ctrl + Win + T to toggle Always On Top
     }
 }
@@ -115,14 +114,7 @@ F17::
         WinLoaded("Open WebUI — Mozilla Firefox") ; wait for window to load
         WinRestore("Open WebUI — Mozilla Firefox")
 
-        ; move to main screen to avoid resize issues
-        x := 0
-        WinGetPos(&x)
-        if (x <= 0) {
-            WinMove(500, 500, 700, 700, "Open WebUI — Mozilla Firefox")
-        }
-
-        WinMove(1811, 221, 757, 1167, "Open WebUI — Mozilla Firefox") ; move and resize the window
+        MoveActiveWindowRightHalfSecondary("Open WebUI — Mozilla Firefox")
         Send("^#t") ; Ctrl + Win + T to toggle Always On Top
     }
 }
