@@ -91,11 +91,11 @@ F16::
     }
     else ; window doesn't exist, need to open
     {
-        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "https://claude.ai/"') ; open Claude
-        WinLoaded("Claude — Mozilla Firefox") ; wait for window to load
-        WinRestore("Claude — Mozilla Firefox")
+        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" "-taskbar-tab" "3e128045-6d2f-4877-9bd7-685713ecd63c" "-new-window" "https://claude.ai/" "-container" "0"') ; open Claude
+        WinLoaded("Claude — Claude in Mozilla Firefox") ; wait for window to load
+        WinRestore("Claude — Claude in Mozilla Firefox")
 
-        MoveActiveWindowRightHalfSecondary("Claude — Mozilla Firefox")
+        MoveActiveWindowRightHalfSecondary("Claude — Claude in Mozilla Firefox")
         Send("^#t") ; Ctrl + Win + T to toggle Always On Top
     }
 }
@@ -110,11 +110,11 @@ F17::
     }
     else ; window doesn't exist, need to open
     {
-        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" --new-window "http://localhost:3000/"') ; open Open WebUI
-        WinLoaded("Open WebUI — Mozilla Firefox") ; wait for window to load
-        WinRestore("Open WebUI — Mozilla Firefox")
+        Run('"C:\Program Files\Mozilla Firefox\firefox.exe" "-taskbar-tab" "cb8181cf-6a59-4467-ae92-0a29c550d8b9" "-new-window" "http://localhost:3000/" "-container" "0"') ; open Open WebUI
+        WinLoaded("Open WebUI — Open WebUI in Mozilla Firefox") ; wait for window to load
+        WinRestore("Open WebUI — Open WebUI in Mozilla Firefox")
 
-        MoveActiveWindowRightHalfSecondary("Open WebUI — Mozilla Firefox")
+        MoveActiveWindowRightHalfSecondary("Open WebUI — Open WebUI in Mozilla Firefox")
         Send("^#t") ; Ctrl + Win + T to toggle Always On Top
     }
 }
